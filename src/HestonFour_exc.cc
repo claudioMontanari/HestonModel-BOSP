@@ -2,12 +2,14 @@
  *       @file  HestonFour_exc.cc
  *      @brief  The HestonFour BarbequeRTRM application
  *
- * Description: to be done...
+ * Description: This file represents all the mainly method implementation of our application.
+ * 		In this file you can file all the initialize operations for our code. But, the most importants operations
+ *		are implemented in HestonWorker.cc (you can find it in contrib/user/HestonFour/src/).
  *
- *     @author  Name Surname (nickname), your@email.com
+ *     @author  Luca Napoletano luca.napoletano@mail.polimi.it, Claudio Montanari claudio1.montanari@mail.polimi.it
  *
- *     Company  Your Company
- *   Copyright  Copyright (c) 20XX, Name Surname
+ *     Company  Politecnico di Milano
+ *   Copyright  Copyright (c) 2017, Luca Napoletano, Claudio Montanari
  *
  * This source code is released for free distribution under the terms of the
  * GNU General Public License as published by the Free Software Foundation.
@@ -20,6 +22,23 @@
 #include <cstdio>
 #include <bbque/utils/utility.h>
 
+/**
+ * @brief		Implementation of the constructor of the HestonFour class. It needs all the Option parameters and the user's 
+ *			preferred values for the number of the simulations and the correct discretization
+ * @param[in] name	The name of the application
+ * @param[in] recipe	A reference to the recipe of the application
+ * @param[in] S0	The spot price of the option
+ * @param[in] K		The strike price of the option
+ * @param[in] r		The risk-free rate of the option
+ * @param[in] T		The maturity time of the option (in years)
+ * @param[in] V0	The initial volatility of the option
+ * @param[in] rho	The Correlation Coefficient parameter of Heston model for the specified option
+ * @param[in] kappa	The mean reversion rate of the Heston Model for the considered option
+ * @param[in] theta	The long-term volatility value
+ * @param[in] xi	The volatility of volatility (V0)
+ * @param[in] N_SIM	The number of wanted simulations
+ * @param[in] DISCR	The discretization value
+ */
 HestonFour::HestonFour(std::string const & name,
 		std::string const & recipe,
 		RTLIB_Services_t *rtlib, double S0, double K, double r, double T, double V0, double rho, double kappa, double theta, double xi,
@@ -74,6 +93,9 @@ HestonFour::HestonFour(std::string const & name,
 
 }
 
+/**
+ * @brief	Method used to do all the Setup operations
+ */
 RTLIB_ExitCode_t HestonFour::onSetup() {
 	// This is just an empty method in the current implementation of this
 	// testing application. However, this is intended to collect all the
@@ -101,6 +123,10 @@ RTLIB_ExitCode_t HestonFour::onSetup() {
 	return RTLIB_OK;
 }
 
+/**
+ * @brief	Method used to do all the Configure operations. Every time the BarbequeRTRM changes the resources assigned to this application,
+ *		the Resource Manager calls this method to reconfigure the application
+ */
 RTLIB_ExitCode_t HestonFour::onConfigure(int8_t awm_id) {
 
 	logger->Warn("HestonFour::onConfigure(): EXC [%s] => AWM [%02d]",
@@ -119,6 +145,9 @@ RTLIB_ExitCode_t HestonFour::onConfigure(int8_t awm_id) {
 	return RTLIB_OK;
 }
 
+/**
+ * @brief	Method used to start the computation of an Option price after our app is configured correctly in onCofigure() method
+ */
 RTLIB_ExitCode_t HestonFour::onRun() {
 	RTLIB_WorkingModeParams_t const wmp = WorkingModeParams();
 
@@ -154,6 +183,9 @@ RTLIB_ExitCode_t HestonFour::onRun() {
 	return RTLIB_OK;
 }
 
+/**
+ * @brief	After every onRun(), this method will be executed and print the updated result
+ */
 RTLIB_ExitCode_t HestonFour::onMonitor() {
 	RTLIB_WorkingModeParams_t const wmp = WorkingModeParams();
 
@@ -166,6 +198,10 @@ RTLIB_ExitCode_t HestonFour::onMonitor() {
 	return RTLIB_OK;
 }
 
+/**
+ * @brief	Called when the application is closing itself. This method does all the closing operations, such as the deallocation
+ *		of the dynamic memory
+ */
 RTLIB_ExitCode_t HestonFour::onRelease() {
 
 	logger->Warn("HestonFour::onRelease()  : exit");

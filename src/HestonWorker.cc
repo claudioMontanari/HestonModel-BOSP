@@ -1,4 +1,18 @@
-
+/**
+ *       @file  HestonWorker.cc
+ *
+ * Description: The most important part of our application. This class calculates the Heston simulations option price.
+ *		Every worker has thread to calculate the option price, in this way the application can run in a parallel
+ *		way
+ *     @author  Luca Napoletano luca.napoletano@mail.polimi.it, Claudio Montanari claudio1.montanari@mail.polimi.it
+ *
+ *     Company  Politecnico di Milano
+ *   Copyright  Copyright (c) 2017, Luca Napoletano, Claudio Montanari
+ *
+ * This source code is released for free distribution under the terms of the
+ * GNU General Public License as published by the Free Software Foundation.
+ * =====================================================================================
+ */
 #include "HestonWorker.h"
 
 #include <cstdio>
@@ -7,7 +21,19 @@
 #include <cmath>
 
 
-
+/**
+ * @brief		The constructor of the HestonWorker class
+ *
+ * @param[in] S0	The spot price of the option
+ * @param[in] K		The strike price of the option
+ * @param[in] r		The risk-free rate of the option
+ * @param[in] T		The maturity time of the option (in years)
+ * @param[in] V0	The initial volatility of the option
+ * @param[in] rho	The Correlation Coefficient parameter of Heston model for the specified option
+ * @param[in] kappa	The mean reversion rate of the Heston Model for the considered option
+ * @param[in] theta	The long-term volatility value
+ * @param[in] xi	The volatility of volatility (V0)
+ */
 HestonWorker::HestonWorker(double S0, double K, double r, double T, double V0, double rho, double kappa, double theta, double xi){
 
 	this->S0 = S0;
@@ -27,7 +53,11 @@ HestonWorker::HestonWorker(double S0, double K, double r, double T, double V0, d
 
 }
 
-
+/**
+ * @brief			Method used to start a simulation
+ * @param[in] simulationToDo	The number of the simulations that a single worker has to do
+ * @param[in] discretization	The value of discretization of the simulation
+ */
 void HestonWorker::start(int simulationToDo, int discretization){
 	
 	//Set the number of simulations and the discretization level
@@ -40,7 +70,10 @@ void HestonWorker::start(int simulationToDo, int discretization){
 
 }
 
-//Method to start a fixed number of simulations (10k)
+/**
+ * @brief			Method used to start a simulation with a fixed number of simulations
+ * @param[in] discretization	The value of discretization of the simulation
+ */
 void HestonWorker::start(int discretization){
 	
 	//Set the number of simulations and the discretization level
@@ -53,6 +86,9 @@ void HestonWorker::start(int discretization){
 
 }
 
+/**
+ * @brief			Method used to stop a worker
+ */
 int HestonWorker::stop(){
 
 	//Wait the Worker ends and return the number of simulations done
@@ -64,11 +100,17 @@ int HestonWorker::stop(){
 
 }
 
+/**
+ * @brief			Method used to wait a computation of a worker
+ */
 void HestonWorker::join(){
 
 	worker.join();
 }
 
+/**
+ * @brief			Method used to do an Heston Simulation. It is used for the thread function
+ */
 void HestonWorker::hestonSimulation(){
 
 	double deltaT = (T / ((double) DISCRETIZATION));
@@ -141,7 +183,10 @@ void HestonWorker::hestonSimulation(){
 }
 
 
-
+/**
+ * @brief		Method used to calculate an approximation of the passed value
+ * @param[in] t		The number to approximate	
+ */
 double HestonWorker::rationalApproximation(double t){
 
    // Abramowitz and Stegun formula 26.2.23.
@@ -152,6 +197,10 @@ double HestonWorker::rationalApproximation(double t){
                 (((d[2]*t + d[1])*t + d[0])*t + 1.0);
 }
 
+/**
+ * @brief		Method used to calculate the inverse of the standard normal function
+ * @param[in] p		A value between 0 and 1 (exclused) that represents a value of a standard normal distribution
+ */
 double HestonWorker::normalCDFInverse(double p){
 
     if (p <= 0.0 || p >= 1.0)
@@ -177,7 +226,9 @@ double HestonWorker::normalCDFInverse(double p){
     }
 }
 
-
+/**
+ * @brief	Method used to calculate the max value between to given numbers
+ */
 double HestonWorker::maxValue(double x, double y){
 	if(x > y)
 		return x;

@@ -6,8 +6,6 @@
 
 #include <cmath>
 
-
-
 HestonWorker::HestonWorker(double S0, double K, double r, double T, double V0, double rho, double kappa, double theta, double xi){
 
 	this->S0 = S0;

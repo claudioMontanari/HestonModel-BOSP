@@ -39,7 +39,7 @@ public:
 
 private:
 	
-	HestonWorker* workers;
+	HestonWorker** workers;
 	//std::vector<HestonWorker*> workers;
 	int WORKERS;
 	int DONE_SIMULATIONS;

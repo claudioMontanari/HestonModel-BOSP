@@ -1,0 +1,12 @@
+
+config CONTRIB_HESTONFOUR
+  bool "HestonFour"
+  select CONTRIBS
+  default n
+  ---help---
+  Build the HestonFour application.
+  
+  Insert here a description of this application.
+
+  If unsure, say No to this option.
+

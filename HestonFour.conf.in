@@ -1,0 +1,37 @@
+################################################################################
+#		       HestonFour Configuration
+################################################################################
+
+
+# Add here application specific configuration option
+
+
+
+################################################################################
+# Log4CPP Logger Configuration
+################################################################################
+[log4cpp]
+
+################################################################################
+# By default, all applications logs everything on a console
+#rootCategory = ERROR, raFile
+rootCategory = DEBUG, raConsole
+
+################################################################################
+# RTLib defined loglevels
+category.rtl	=	NOTICE
+category.rpc	=	NOTICE
+category.exc	=	NOTICE
+
+################################################################################
+# Console Appender
+appender.raConsole = org.apache.log4j.ConsoleAppender
+appender.raConsole.layout = org.apache.log4j.PatternLayout
+appender.raConsole.layout.ConversionPattern = %d{%H:%M:%S,%l} - %-6p %-15c : %m%n
+
+################################################################################
+# File Appender
+appender.raFile = org.apache.log4j.FileAppender
+appender.raFile.fileName = ${CONFIG_BOSP_RUNTIME_PATH}/apps.log
+appender.raFile.layout = org.apache.log4j.PatternLayout
+appender.raFile.layout.ConversionPattern = %d{%Y-%m-%d %H:%M:%S,%l} - %-6p %-15c : %m%n

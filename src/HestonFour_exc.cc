@@ -92,7 +92,8 @@ RTLIB_ExitCode_t HestonFour::onSetup() {
 
 	/**
 	 * @brief Create the workers with the NUM_PROC variables
-	 */		
+	 */	
+		
 	for(int i=0;i<NUM_PROC; i++){
 		logger->Warn("Creating new worker"); 
 		workers[i] = new HestonWorker( S0, K, r, T, V0, rho, kappa, theta, xi);

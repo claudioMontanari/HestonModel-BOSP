@@ -38,7 +38,6 @@ public:
 private:
 	
 	HestonWorker** workers;
-	//std::vector<HestonWorker*> workers;
 	int WORKERS;
 	int DONE_SIMULATIONS;
 	int TODO_SIMULATIONS;
@@ -47,6 +46,9 @@ private:
 	const int WORKERS_SIM = 10000;
 
 	double finalPrice;
+	int pricesToCompute;
+	double* computedPrices;
+	int computedPricesIndex;
 	/**
 	 * Variable used to accumulate the results from each run
 	 */

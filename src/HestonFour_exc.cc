@@ -73,6 +73,10 @@ HestonFour::HestonFour(std::string const & name,
 	this->DISCRETIZATION = DISCR;
 	this->DONE_SIMULATIONS = 0;
 	
+	this->pricesToCompute = (int) (TODO_SIMULATIONS / WORKERS_SIM);
+	this->computedPrices = new double[pricesToCompute];
+	this->computedPricesIndex = 0;	
+
 	std::cout << std::endl;
 
 	std::cout << "S0: " << this->S0 << std::endl;
@@ -176,6 +180,8 @@ RTLIB_ExitCode_t HestonFour::onRun() {
 		logger->Warn("Worker %d computed price: %f ", i, temp );
 
 		workersFinalSum += workers[i]->getCalculus();
+		computedPrices[computedPricesIndex] = temp;
+		computedPricesIndex++;
 	}
 
 	// Do one more cycle
@@ -207,6 +213,11 @@ RTLIB_ExitCode_t HestonFour::onMonitor() {
 RTLIB_ExitCode_t HestonFour::onRelease() {
 
 	logger->Warn("HestonFour::onRelease()  : exit");
+	
+	for(int i=0; i < this->pricesToCompute; i++){
+		
+		logger->Warn("Price %d = %f", i, computedPrices[i]);		
+	} 
 
 	for(int i=0; i<NUM_PROC; i++){
 		delete workers[i];

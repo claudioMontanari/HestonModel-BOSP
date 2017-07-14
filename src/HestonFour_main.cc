@@ -2,12 +2,12 @@
  *       @file  HestonFour_main.cc
  *      @brief  The HestonFour BarbequeRTRM application
  *
- * Description: to be done...
+ * Description: The main program to start the HestonFour application
  *
- *     @author  Name Surname (nickname), your@email.com
+ *     @author  Luca Napoletano luca.napoletano@mail.polimi.it, Claudio Montanari claudio1.montanari@mail.polimi.it
  *
- *     Company  Your Company
- *   Copyright  Copyright (c) 20XX, Name Surname
+ *     Company  Politecnico di Milano
+ *   Copyright  Copyright (c) 2017, Luca Napoletano, Claudio Montanari
  *
  * This source code is released for free distribution under the terms of the
  * GNU General Public License as published by the Free Software Foundation.

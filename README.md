@@ -1,5 +1,5 @@
 # Heston Model on BarbequeRTRM
-_**Authors:** [Luca Napoletano](https://github.com/lnapo94) **&** [Claudio Montanari](https://github.com/claudioMontanari)_
+_**Authors:** [Claudio Montanari](https://github.com/claudioMontanari)  **&** [Luca Napoletano](https://github.com/lnapo94)_
 
 ### Welcome to our repository of the Project on the BarbequeRTRM framework!
 This is our README file. We create this document to help you to understand the usage and the general idea of our project.

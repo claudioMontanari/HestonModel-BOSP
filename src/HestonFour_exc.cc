@@ -86,7 +86,7 @@ RTLIB_ExitCode_t HestonFour::onSetup() {
 	/**
 	 * @brief Number of max processor in the computer
 	 */
-	NUM_PROC = sysconf(_SC_NPROCESSORS_ONLN);
+	NUM_PROC = (int) std::thread::hardware_concurrency();
 	std::cout << "Number of detected processors: " << NUM_PROC << std::endl;
 
 
